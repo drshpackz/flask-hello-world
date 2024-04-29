@@ -1,0 +1,74 @@
+<div class="container mx-auto px-4 mt-4 mb-2 flex flex-wrap justify-center">
+    <button id="button1" class="number-button bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2 mb-2" onclick="addNumberToPrefix('1')">1</button>
+    <button id="button2" class="number-button bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2 mb-2" onclick="addNumberToPrefix('2')">2</button>
+    <button id="button3" class="number-button bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2 mb-2" onclick="addNumberToPrefix('3')">3</button>
+    <button id="button4" class="number-button bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2 mb-2" onclick="addNumberToPrefix('4')">4</button>
+    <button id="button5" class="number-button bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2 mb-2" onclick="addNumberToPrefix('5')">5</button>
+    <button id="button6" class="number-button bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2 mb-2" onclick="addNumberToPrefix('6')">6</button>
+    <button id="button7" class="number-button bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2 mb-2" onclick="addNumberToPrefix('7')">7</button>
+    <button id="button8" class="number-button bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2 mb-2" onclick="addNumberToPrefix('8')">8</button>
+    <button id="button9" class="number-button bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2 mb-2" onclick="addNumberToPrefix('9')">9</button>
+    <button id="button0" class="number-button bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2 mb-2" onclick="addNumberToPrefix('0')">0</button>
+    <button class="number-button clear-button bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mr-2 mb-2" onclick="clearFilter()">[x]</button>
+</div>
+
+<script>
+    let activeButton = null;
+
+    function addNumberToPrefix(number) {
+        const button = document.getElementById('button' + number);
+        if (activeButton) {
+            activeButton.classList.remove('active');
+        }
+        activeButton = button;
+        activeButton.classList.add('active');
+        filterPrefix += number;
+        filterFlights(filterPrefix);
+    }
+
+    function clearFilter() {
+        filterPrefix = '';
+        const buttons = document.querySelectorAll('.number-button');
+        buttons.forEach(button => {
+            button.classList.remove('active');
+        });
+        activeButton = null;
+        filterFlights(filterPrefix);
+    }
+</script>
+
+
+
+
+<script>
+    let filterPrefix = '';
+    
+    function addNumberToPrefix(number) {
+        // Append new number to the existing filter prefix
+        filterPrefix += number;
+        filterFlights(filterPrefix); // Filter flights based on the updated prefix
+    }
+    
+    function filterFlights(prefix) {
+        const rows = document.querySelectorAll('tbody tr');
+        rows.forEach(row => {
+            const flightIdCell = row.querySelector('.px-3.py-4');
+            const flightIdText = flightIdCell.innerText.trim().split('\n')[0].trim();
+            // Extract numeric part of the flight ID
+            const numericPart = flightIdText.match(/\d+/)[0];
+            if (!numericPart.startsWith(prefix)) {
+                row.style.display = 'none';
+            } else {
+                row.style.display = '';
+            }
+        });
+    }
+    
+    function clearFilter() {
+        filterPrefix = '';
+        const rows = document.querySelectorAll('tbody tr');
+        rows.forEach(row => {
+            row.style.display = '';
+        });
+    }
+</script>

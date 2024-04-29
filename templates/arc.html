@@ -1,0 +1,33 @@
+ <!-- Archived Flights Table -->
+  {% if flights.archived %}
+  <div id="archive" class="overflow-hidden border-b border-gray-200 sm:rounded-lg">
+      <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+              <tr>
+                  <th scope="col" class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Flight ID</th>
+                  <th scope="col" class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Scheduled Time</th>
+                  <th scope="col" class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+              </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            {% for flight in flights.active %}
+            <tr>
+                <td class="px-3 py-4 whitespace-nowrap">
+                    <div>{{ flight.flight_id }}</div>
+                    <div class="text-sm text-gray-500">{{ flight.airport }}</div>
+                </td>
+                <td class="px-3 py-4 whitespace-nowrap">
+                    <div id="schedule-time-{{ flight.flight_id }}">{{ flight.schedule_time }}</div>
+                    <div id="time-left-{{ flight.flight_id }}" class="text-sm text-gray-500" data-schedule="{{ flight.schedule_time }}"></div>
+                </td>
+                <td class="px-3 py-4 whitespace-nowrap">
+                      <!-- Actions Dropdown -->
+                  </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+  </div>
+  {% else %}
+  <div class="py-4 text-gray-700">No archived flights available.</div>
+  {% endif %}

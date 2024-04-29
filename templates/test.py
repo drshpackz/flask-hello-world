@@ -117,8 +117,6 @@ def baggage_delivered():
     return jsonify({"status": "error", "message": "No Flight ID provided"}), 400
 
 
-if __name__ == '__main__':
-    app.run(host='192.168.10.175', port=8080, debug=True)
-
-
-
+if __name__ == '__main__'
+    app.run(host'0.0.0.0)', port=8080
+    debug=False. use_reloader=False)
